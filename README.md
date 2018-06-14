@@ -23,3 +23,5 @@ Unittests are in the test\*.py files:
 python -m unittest testConvert
 python -m unittest testNode
 python -m unittest testGraph
+
+A much wider scope of testing could be implemented.

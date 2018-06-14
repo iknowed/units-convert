@@ -65,6 +65,15 @@ class TestConvert(unittest.TestCase):
         (100, 'Rankine', 'Fahrenheit', -359.67),
         (212, 'Rankine', 'Fahrenheit', -247.67)]
 
+    def test_bad_units(self):
+        c = Convert()
+        self.assertFalse(c.convert('Foo','Bar',123))
+        self.assertFalse(c.convert('Kelvin','Bar',456))
+        self.assertFalse(c.convert('Foo','Fahrenheit',789))
+        self.assertFalse(c.convert('Foo','Fahrenheit','abc'))
+        self.assertFalse(c.convert(None,None,None))
+        self.assertFalse(c.convert(False,False,False))
+
     def test_conversion(self):
         # floating point rounding
         def is_close(a, b, rel_tol=1e-09, abs_tol=0.0):
@@ -78,6 +87,7 @@ class TestConvert(unittest.TestCase):
             units_to = test[2]
             correct_result = test[3]
             self.assertTrue(is_close(c.convert(units_from,units_to,deg_from),correct_result))
+            # eliminate false positives where conversion is identity
             if deg_from != correct_result:
                 self.assertFalse(is_close(c.convert(units_from,units_to,deg_from),deg_from))
        

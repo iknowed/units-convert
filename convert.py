@@ -69,7 +69,11 @@ class Convert(object):
         
     def convert(self,source,target,degrees):
         # get path from source to target
+        if not isinstance(degrees, int) and not isinstance(degrees, float):
+            return None
         path = self.path(source,target)
+        if path == None:
+            return path
         res = None
         last = None
 
