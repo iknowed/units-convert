@@ -98,12 +98,14 @@ class Graph(object):
                 list: list of list of paths by path length/cost
         """
 
+
         # initial cost, source node, and empty path primes the queue
         queue = [(0, source, [])]
 
         # hold nodes we've seen
         seen = set()
 
+        path = None
         # so long as there are more nodes to process
         while len(queue):
 
@@ -132,7 +134,7 @@ class Graph(object):
                 # queue up visits to neighbors
                 for nxt in node.edges():
                     heapq.heappush(queue, (cost + 1, nxt.name, path))
-        return paths
+        return path
 
 
     def __str__(self):
